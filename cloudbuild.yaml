@@ -1,0 +1,12 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  id: Build
+  args:
+  - 'build'
+  - '--build-arg'
+  - 'version=$SHORT_SHA'
+  - '-t'
+  - 'europe-west2-docker.pkg.dev/fleet-coyote-341511/nap-theme/prototype:$SHORT_SHA'
+  - '.'
+  - '--progress=plain'
+  - '--no-cache'
