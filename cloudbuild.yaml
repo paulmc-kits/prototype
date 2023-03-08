@@ -10,3 +10,9 @@ steps:
   - '.'
   - '--progress=plain'
   - '--no-cache'
+
+- name: 'gcr.io/cloud-builders/docker'
+  id: Push
+  args:
+  - 'push'
+  - 'europe-west2-docker.pkg.dev/fleet-coyote-341511/nap-theme/prototype:$SHORT_SHA'
