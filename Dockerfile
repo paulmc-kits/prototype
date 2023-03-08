@@ -8,6 +8,6 @@ COPY package*.json ./
 RUN npm install 
 COPY app/ .
 # expose port 3000 for our server to run on
-EXPOSE 3000
+EXPOSE 2000
 # command to start our server
 CMD ["npm", "run", "dev"]

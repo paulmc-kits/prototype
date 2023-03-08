@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: prototype-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "prototype-static-ip"
+    networking.gke.io/managed-certificates: prototype-managed-cert
+    kubernetes.io/ingress.class: "gce"
+    networking.gke.io/v1beta1.FrontendConfig: ssl-redirect
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: prototype-service
+            port:
+              number: 2000
