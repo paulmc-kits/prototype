@@ -4,7 +4,7 @@ FROM node:18
 WORKDIR /src
 # copy all our source code into the working directory
 COPY package*.json ./
-# install npm dependencies and pm2
+# install npm dependencies 
 RUN npm install 
 COPY app/ .
 # expose port 3000 for our server to run on
