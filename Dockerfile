@@ -3,7 +3,7 @@ FROM node:18
 # define working directory for docker
 WORKDIR /src
 # copy all our source code into the working directory
-COPY package*.json ./
+COPY package*.json /.
 # install npm dependencies and pm2
 RUN npm install 
 COPY app/ .
