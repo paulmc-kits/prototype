@@ -22,7 +22,8 @@ spec:
       #serviceAccountName: ckanserviceaccount
       containers:
         - name: prototype
-          image: europe-west2-docker.pkg.dev/fleet-coyote-341511/nap-theme/prototype:$SHORT_SHA' 
+      #    image: europe-west2-docker.pkg.dev/fleet-coyote-341511/nap-theme/prototype:$SHORT_SHA' 
+          image: europe-west2-docker.pkg.dev/fleet-coyote-341511/nap-theme/prototype:de5c1a6
           resources:
             limits:
                #memory: 512Mi
@@ -32,19 +33,19 @@ spec:
                #cpu: 500m
           ports:
            - name: prototype-app
-             containerPort: 2000
+             containerPort: 3000
              protocol: TCP
-          readinessProbe:
-            tcpSocket:
-              port: prototype-app
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            httpGet:
-              path: /
-              port: prototype-app
-              httpHeaders:
-              - name: Accept
-                value: "*/*"
-            initialDelaySeconds: 15
-            periodSeconds: 15
+#          readinessProbe:
+#            tcpSocket:
+#              port: prototype-app
+#            initialDelaySeconds: 5
+#            periodSeconds: 10
+#          livenessProbe:
+#            httpGet:
+#              path: /
+#              port: prototype-app
+#              httpHeaders:
+#              - name: Accept
+#                value: "*/*"
+#            initialDelaySeconds: 15
+#            periodSeconds: 15
