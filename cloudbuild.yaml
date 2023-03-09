@@ -23,8 +23,12 @@ steps:
   args:
   - '-c'
   - |
+    git config --global user.name "cloudbuilder"
+    git config --global user.email "cloudbuilder@gmail.com"
+    git push origin --delete candidate
+    git checkout -b candidate
     sed "s/COMMIT_SHA/${SHORT_SHA}/g" manifests/deployment.yaml.tpl manifests/deployment.yaml
-    git add manifests/deployment.yam
-    git commit -m "Update hash"
-    git push
+    git add manifests/deployment.yaml
+    git commit -m "europe-docker.pkg.dev/prototype:${SHORT_SHA} Built from commit ${COMMIT_SHA} of repository prototype Author: $(git log --format='%an <%ae>' -n 1 HEAD)"
+    git push --set-upstream origin candidate
 
