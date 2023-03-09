@@ -23,4 +23,4 @@ steps:
   args:
   - '-c'
   - |
-    sed "s/COMMIT_SHA/${SHORT_SHA}/g" manifest/deployment.yaml.tpl manifests/deployment.yaml
+    sed "s/COMMIT_SHA/${SHORT_SHA}/g" manifests/deployment.yaml.tpl manifests/deployment.yaml
