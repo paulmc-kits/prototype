@@ -19,16 +19,32 @@ steps:
 
 - name: 'gcr.io/cloud-builders/git'
   id: Update Hash 
+  volumes:
+  - name: 'manifestsvolume'
+    path: '/data'
   entrypoint: 'bash'
   args:
   - '-c'
   - |
-    git config --global user.name "cloudbuilder"
-    git config --global user.email "cloudbuilder@gmail.com"
-    git push origin --delete candidate
-    git checkout -b candidate
     sed "s/COMMIT_SHA/${SHORT_SHA}/g" manifests/deployment.yaml.tpl manifests/deployment.yaml
-    git add manifests/deployment.yaml
-    git commit -m "europe-docker.pkg.dev/prototype:${SHORT_SHA} Built from commit ${COMMIT_SHA} of repository prototype Author: $(git log --format='%an <%ae>' -n 1 HEAD)"
-    git push --set-upstream origin candidate
+    sed -i "s#_DOMAINNAME#${_DOMAINNAME}#g" manifests/certificate.yaml
+    cp manifests/certificate.yaml /data/certificate.yaml
+    cp manifests/ingress.yaml /data/ingress.yaml
+    cp manifests/services.yaml /data/services.yaml
+    cp manifests/deployment.yaml /data/deployment.yaml
 
+- name: "gcr.io/cloud-builders/gke-deploy"
+  volumes:
+    - name: 'manifestsvolume'
+      path: '/data'
+  args:
+  - run
+  - --filename=/data/
+  - --location=europe-west2
+  - --namespace=${_NAMESPACE}
+  - --cluster=${_CLUSTER}
+  timeout: 600s
+
+substitutions:
+    _NAMESPACE: kits-dft-test
+    _CLUSTER: kits-dft-test-cluster
