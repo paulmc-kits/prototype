@@ -12,6 +12,7 @@
     cp manifests/certificate.yaml /data/certificate.yaml
     cp manifests/ingress.yaml /data/ingress.yaml
     cp manifests/services.yaml /data/services.yaml
+    cp manifests/deployment.yaml /data/deployment.yaml
     
 - name: "gcr.io/cloud-builders/gke-deploy"
   volumes:
