@@ -6,7 +6,7 @@ WORKDIR /src
 COPY package*.json ./
 # install npm dependencies 
 RUN npm install 
-#need to check audit
+#need to check audits
 RUN npm audit || true
 COPY app/ .
 # expose port 3000 for our server to run on

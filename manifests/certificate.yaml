@@ -4,4 +4,4 @@ metadata:
   name: prototype-managed-cert
 spec:
   domains:
-    - 159.100.95.34.bc.googleusercontent.com
+    - _DOMAINNAME
