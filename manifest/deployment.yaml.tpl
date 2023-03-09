@@ -22,7 +22,8 @@ spec:
       #serviceAccountName: ckanserviceaccount
       containers:
         - name: prototype
-          image: europe-west2-docker.pkg.dev/fleet-coyote-341511/nap-theme/prototype:COMMIT_SHA
+      #    image: europe-west2-docker.pkg.dev/fleet-coyote-341511/nap-theme/prototype:$SHORT_SHA' 
+          image: europe-west2-docker.pkg.dev/fleet-coyote-341511/nap-theme/prototype:c242c91
           resources:
             limits:
                #memory: 512Mi

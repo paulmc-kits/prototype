@@ -1,0 +1,31 @@
+# This step only applies the managed cert in dev/test
+- name: 'gcr.io/cloud-builders/git'
+  id: Managed cert
+  volumes:
+  - name: 'manifestsvolume'
+    path: '/data'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    sed -i "s#_DOMAINNAME#${_DOMAINNAME}#g" manifests/certificate.yaml
+    cp manifests/certificate.yaml /data/certificate.yaml
+    cp manifests/ingress.yaml /data/ingress.yaml
+    cp manifests/services.yaml /data/services.yaml
+    
+- name: "gcr.io/cloud-builders/gke-deploy"
+  volumes:
+    - name: 'manifestsvolume'
+      path: '/data'
+  args:
+  - run
+  - --filename=/data/
+  - --location=europe-west2
+  - --namespace=${_NAMESPACE}
+  - --cluster=${_CLUSTER}
+  timeout: 600s
+
+substitutions:
+    _NAMESPACE: kits-dft-test
+    _CLUSTER: kits-dft-test-cluster
+
